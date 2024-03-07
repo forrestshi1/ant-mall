@@ -1,3 +1,4 @@
+//不会对外暴露任何的业务逻辑，只是一个实体类
 package com.example.antmall.business.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
