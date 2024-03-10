@@ -37,12 +37,12 @@ public class ProductController {
 
     @ApiOperation("分页查询")
     @GetMapping("page")
-    public PageVO<ProductQueryVO> page(@Valid@RequestBody ProductQueryBO queryBO) {
+    public PageVO<ProductQueryVO> page(ProductQueryBO queryBO) {
         return  productService.page(queryBO);
     }
 
     @ApiOperation("删除")
-    @PostMapping("delete ")
+    @PostMapping("delete")
     public void delete(@NotEmpty @RequestBody List<Long> idList) {
         productService.delete(idList);
     }

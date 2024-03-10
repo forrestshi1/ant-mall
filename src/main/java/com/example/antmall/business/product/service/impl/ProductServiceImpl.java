@@ -10,13 +10,13 @@ import com.example.antmall.business.product.mapper.ProductMapper;
 import com.example.antmall.business.product.service.ProductService;
 import com.example.antmall.business.product.vo.ProductQueryVO;
 import com.example.antmall.common.entity.PageVO;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements ProductService {
@@ -39,13 +39,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Override
     public PageVO<ProductQueryVO> page(ProductQueryBO queryBO) {
-        Page<Product> pageRequest = new Page<>(queryBO.getCurrentPage(),queryBO.getPageSize());
+        Page<Product> pageRequest = new Page<>(queryBO.getCurrentPage(), queryBO.getPageSize());
 
         Page<Product> page = lambdaQuery()
                 .eq(StringUtils.hasText(queryBO.getName()),
-                        Product::getName,queryBO.getName())
+                        Product::getName, queryBO.getName())
                 .like(StringUtils.hasText(queryBO.getDescription()),
-                        Product::getDescription,queryBO.getDescription())
+                        Product::getDescription, queryBO.getDescription())
                 .orderByAsc(Product::getCreateTime)
                 .page(pageRequest);
 
@@ -56,15 +56,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
         List<ProductQueryVO> productQueryVOList = new ArrayList<>();
         List<Product> productList = page.getRecords();
-        for (Product product : productList){
+        for (Product product : productList) {
             ProductQueryVO productQueryVO = new ProductQueryVO();
-            BeanUtils.copyProperties(product,productQueryVO);
+            BeanUtils.copyProperties(product, productQueryVO);
             productQueryVOList.add(productQueryVO);
         }
         pageVO.setDataList(productQueryVOList);
 
         return pageVO;
-
     }
 
     @Override
